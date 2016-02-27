@@ -52,6 +52,7 @@
     <Compile Include="Extensibility\Extensions\IDictionaryEx.cs" />
     <Compile Include="Extensibility\Extensions\ObjectCacheEx.cs" />
     <Compile Include="Extensibility\Prototypes.cs" />
+    <Compile Include="Process\Behaviour\BlockBehaviour.cs" />
     <Compile Include="Process\Behaviour\Eval\PrototypedConcomitantEvaluatingBehaviour.cs" />
     <Compile Include="Process\Behaviour\Eval\PrototypedEvaluatingBehaviour.cs" />
     <Compile Include="Process\Behaviour\LoopBehaviour.cs" />
