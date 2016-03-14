@@ -33,12 +33,20 @@ namespace Inversion.Extensibility.Extensions
                 return o != null ? o.Value : null;
             }
 
-            JToken resultToken = controlStateObject.Data.SelectToken(path);
-            if (resultToken is JObject)
+            try
             {
-                return resultToken.ToString();
+                JToken resultToken = controlStateObject.Data.SelectToken(path);
+                if (resultToken is JObject)
+                {
+                    return resultToken.ToString();
+                }
+                return resultToken != null ? resultToken.Value<string>() : null;
             }
-            return resultToken != null ? resultToken.Value<string>() : null;
+            catch (Exception ex)
+            {
+                throw new ArgumentException(String.Format("Problem while evaluating {0} path {1}: {2}", key, path,
+                    ex.ToString()));
+            }
         }
 
         public static T GetWithAssert<T>(this Inversion.Collections.IDataDictionary<object> controlState, string key) where T : class
