@@ -17,5 +17,16 @@ namespace Inversion.Extensibility.Extensions
             }
             return self[key];
         }
+
+        public static string GetParameterValue(this IDataDictionary<string> self, string keyAndPath)
+        {
+            string[] splitlist = keyAndPath.Split(new char[] { ':' }, StringSplitOptions.RemoveEmptyEntries);
+
+            if (!self.ContainsKey(splitlist[1]) && splitlist.Length > 2)
+            {
+                return splitlist[2];
+            }
+            return self.GetWithAssert(splitlist[1]);
+        }
     }
 }
