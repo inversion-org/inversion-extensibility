@@ -22,5 +22,14 @@ namespace Inversion.Extensibility.Extensions
             }
             return self[key];
         }
+
+        public static string GetWithAssert(this IDictionary<string, string> self, string key, bool assert = true)
+        {
+            if (!self.ContainsKey(key))
+            {
+                throw new ArgumentException(String.Format("Expected '{0}' in data", key));
+            }
+            return self[key];
+        }
     }
 }
