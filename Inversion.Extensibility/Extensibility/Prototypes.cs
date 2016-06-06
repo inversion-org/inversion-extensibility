@@ -62,6 +62,30 @@ namespace Inversion.Extensibility
                     });
                 });
 
+            Prototype.NamedCases["control-state-eval-contains"] = new Prototype.Case(
+                match: (config) => config.Has("control-state", "eval-contains"),
+                criteria: (config, ev) =>
+                {
+                    IEnumerable<IConfigurationElement> elements = config.GetElements("control-state", "eval-contains");
+                    return elements.All(e =>
+                    {
+                        string res = ev.Context.ControlState.GetEffectiveStringResult(e.Name);
+                        return res.Contains(e.Value);
+                    });
+                });
+
+            Prototype.NamedCases["control-state-eval-not-contains"] = new Prototype.Case(
+                match: (config) => config.Has("control-state", "eval-not-contains"),
+                criteria: (config, ev) =>
+                {
+                    IEnumerable<IConfigurationElement> elements = config.GetElements("control-state", "eval-not-contains");
+                    return elements.All(e =>
+                    {
+                        string res = ev.Context.ControlState.GetEffectiveStringResult(e.Name);
+                        return !res.Contains(e.Value);
+                    });
+                });
+
             Prototype.NamedCases["object-cache-includes"] = new Prototype.Case(
                 match: (config) => config.Has("object-cache", "includes"),
                 criteria: (config, ev) =>
