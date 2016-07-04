@@ -5,29 +5,33 @@ namespace Inversion.Extensibility.Extensions
 {
     public static class IDictionaryEx
     {
-        public static string GetEvalData(this IDictionary<string, string> self, string key, string defaultValue = "")
-        {
-            return self.GetEvalDataWithAssert(key, assert: true, defaultValue: defaultValue);
-        }
+        //public static string GetEvalData(this IDictionary<string, string> self, string key, string defaultValue = "")
+        //{
+        //    return self.GetEvalDataWithAssert(key, assert: true, defaultValue: defaultValue);
+        //}
 
-        public static string GetEvalDataWithAssert(this IDictionary<string, string> self, string key, bool assert = true, string defaultValue = "")
+        //public static string GetEvalDataWithAssert(this IDictionary<string, string> self, string key, bool assert = true, string defaultValue = "")
+        //{
+        //    if (!self.ContainsKey(key))
+        //    {
+        //        if (assert)
+        //        {
+        //            throw new ArgumentException(String.Format("Expected '{0}' in Eval data.", key));
+        //        }
+        //        return defaultValue;
+        //    }
+        //    return self[key];
+        //}
+
+        public static string GetWithAssert(this IDictionary<string, string> self, string key, string defaultValue = "", bool assert = true)
         {
             if (!self.ContainsKey(key))
             {
                 if (assert)
                 {
-                    throw new ArgumentException(String.Format("Expected '{0}' in Eval data.", key));
+                    throw new ArgumentException(String.Format("Expected '{0}' in data", key));
                 }
                 return defaultValue;
-            }
-            return self[key];
-        }
-
-        public static string GetWithAssert(this IDictionary<string, string> self, string key, bool assert = true)
-        {
-            if (!self.ContainsKey(key))
-            {
-                throw new ArgumentException(String.Format("Expected '{0}' in data", key));
             }
             return self[key];
         }
