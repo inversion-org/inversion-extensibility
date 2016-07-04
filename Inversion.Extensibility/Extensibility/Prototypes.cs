@@ -14,11 +14,11 @@ namespace Inversion.Extensibility
     {
         public void Register(IServiceContainerRegistrar registrar, IDictionary<string, string> settings)
         {
-            Prototype.NamedCases["control-state-eval"] = new Prototype.Case(
-                match: (config) => config.Has("control-state", "eval"),
+            Prototype.NamedCases["control-state-equals"] = new Prototype.Case(
+                match: (config) => config.Has("control-state", "equals"),
                 criteria: (config, ev) =>
                 {
-                    IEnumerable<IConfigurationElement> elements = config.GetElements("control-state", "eval");
+                    IEnumerable<IConfigurationElement> elements = config.GetElements("control-state", "equals");
                     return elements.All(e =>
                     {
                         string res = ev.Context.ControlState.GetEffectiveStringResult(e.Name);
@@ -26,11 +26,11 @@ namespace Inversion.Extensibility
                     });
                 });
 
-            Prototype.NamedCases["control-state-eval-negative"] = new Prototype.Case(
-                match: (config) => config.Has("control-state", "eval-negative"),
+            Prototype.NamedCases["control-state-not-equals"] = new Prototype.Case(
+                match: (config) => config.Has("control-state", "not-equals"),
                 criteria: (config, ev) =>
                 {
-                    IEnumerable<IConfigurationElement> elements = config.GetElements("control-state", "eval-negative");
+                    IEnumerable<IConfigurationElement> elements = config.GetElements("control-state", "not-equals");
                     return elements.All(e =>
                     {
                         string res = ev.Context.ControlState.GetEffectiveStringResult(e.Name);
@@ -38,11 +38,11 @@ namespace Inversion.Extensibility
                     });
                 });
 
-            Prototype.NamedCases["control-state-eval-empty"] = new Prototype.Case(
-                match: (config) => config.Has("control-state", "eval-empty"),
+            Prototype.NamedCases["control-state-empty"] = new Prototype.Case(
+                match: (config) => config.Has("control-state", "empty"),
                 criteria: (config, ev) =>
                 {
-                    IEnumerable<IConfigurationElement> elements = config.GetElements("control-state", "eval-empty");
+                    IEnumerable<IConfigurationElement> elements = config.GetElements("control-state", "empty");
                     return elements.All(e =>
                     {
                         string res = ev.Context.ControlState.GetEffectiveStringResult(e.Name);
@@ -50,11 +50,11 @@ namespace Inversion.Extensibility
                     });
                 });
 
-            Prototype.NamedCases["control-state-eval-not-empty"] = new Prototype.Case(
-                match: (config) => config.Has("control-state", "eval-notempty"),
+            Prototype.NamedCases["control-state-not-empty"] = new Prototype.Case(
+                match: (config) => config.Has("control-state", "not-empty"),
                 criteria: (config, ev) =>
                 {
-                    IEnumerable<IConfigurationElement> elements = config.GetElements("control-state", "eval-notempty");
+                    IEnumerable<IConfigurationElement> elements = config.GetElements("control-state", "not-empty");
                     return elements.All(e =>
                     {
                         string res = ev.Context.ControlState.GetEffectiveStringResult(e.Name);
@@ -62,11 +62,11 @@ namespace Inversion.Extensibility
                     });
                 });
 
-            Prototype.NamedCases["control-state-eval-contains"] = new Prototype.Case(
-                match: (config) => config.Has("control-state", "eval-contains"),
+            Prototype.NamedCases["control-state-value-contains"] = new Prototype.Case(
+                match: (config) => config.Has("control-state", "value-contains"),
                 criteria: (config, ev) =>
                 {
-                    IEnumerable<IConfigurationElement> elements = config.GetElements("control-state", "eval-contains");
+                    IEnumerable<IConfigurationElement> elements = config.GetElements("control-state", "value-contains");
                     return elements.All(e =>
                     {
                         string res = ev.Context.ControlState.GetEffectiveStringResult(e.Name);
@@ -74,11 +74,11 @@ namespace Inversion.Extensibility
                     });
                 });
 
-            Prototype.NamedCases["control-state-eval-not-contains"] = new Prototype.Case(
-                match: (config) => config.Has("control-state", "eval-not-contains"),
+            Prototype.NamedCases["control-state-value-does-not-contain"] = new Prototype.Case(
+                match: (config) => config.Has("control-state", "value-does-not-contain"),
                 criteria: (config, ev) =>
                 {
-                    IEnumerable<IConfigurationElement> elements = config.GetElements("control-state", "eval-not-contains");
+                    IEnumerable<IConfigurationElement> elements = config.GetElements("control-state", "value-does-not-contain");
                     return elements.All(e =>
                     {
                         string res = ev.Context.ControlState.GetEffectiveStringResult(e.Name);
