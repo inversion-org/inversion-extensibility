@@ -45,6 +45,16 @@ namespace Inversion.Process.Behaviour
             {
                 ev.Params.Remove(element.Name);
             }
+
+            foreach (IConfigurationElement element in this.Configuration.GetElements("flag", "set"))
+            {
+                context.Flags.Add(element.Name);
+            }
+
+            foreach (IConfigurationElement element in this.Configuration.GetElements("flag", "remove"))
+            {
+                context.Flags.Remove(element.Name);
+            }
         }
     }
 }
