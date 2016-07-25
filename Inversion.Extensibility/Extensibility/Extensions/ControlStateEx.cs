@@ -24,6 +24,11 @@ namespace Inversion.Extensibility.Extensions
 
             if (controlStateObject == null)
             {
+                if (controlState[key] is string)
+                {
+                    return (string) controlState[key];
+                }
+
                 return null;
             }
 
