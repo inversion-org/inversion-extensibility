@@ -78,7 +78,8 @@ namespace Inversion.Extensibility
                 match: (config) => config.Has("control-state", "value-does-not-contain"),
                 criteria: (config, ev) =>
                 {
-                    IEnumerable<IConfigurationElement> elements = config.GetElements("control-state", "value-does-not-contain");
+                    IEnumerable<IConfigurationElement> elements = config.GetElements("control-state",
+                        "value-does-not-contain");
                     return elements.All(e =>
                     {
                         string res = ev.Context.ControlState.GetEffectiveStringResult(e.Name);
@@ -114,7 +115,7 @@ namespace Inversion.Extensibility
                             string value = ev.Context.Params[e.Name];
                             Type t = Type.GetType(e.Value);
                             TypeConverter converter = TypeDescriptor.GetConverter(t);
-                            if (converter.CanConvertFrom(typeof (string)))
+                            if (converter.CanConvertFrom(typeof(string)))
                             {
                                 try
                                 {
@@ -124,11 +125,33 @@ namespace Inversion.Extensibility
                                         return true;
                                     }
                                 }
-                                catch { }
+                                catch
+                                {
+                                }
                             }
                         }
                         return false;
                     });
+                });
+
+            Prototype.NamedCases["context-empty"] = new Prototype.Case(
+                match: (config) => config.Has("context", "empty"),
+                criteria: (config, ev) =>
+                {
+                    IEnumerable<IConfigurationElement> elements = config.GetElements("context", "empty");
+                    return
+                        elements.All(
+                            e => ev.Context.HasParams(e.Name) && String.IsNullOrEmpty(ev.Context.Params[e.Name]));
+                });
+
+            Prototype.NamedCases["context-not-empty"] = new Prototype.Case(
+                match: (config) => config.Has("context", "not-empty"),
+                criteria: (config, ev) =>
+                {
+                    IEnumerable<IConfigurationElement> elements = config.GetElements("context", "empty");
+                    return
+                        elements.All(
+                            e => ev.Context.HasParams(e.Name) && !String.IsNullOrEmpty(ev.Context.Params[e.Name]));
                 });
         }
     }

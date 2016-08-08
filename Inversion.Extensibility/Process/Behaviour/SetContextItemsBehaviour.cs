@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+
 using Inversion.Extensibility.Extensions;
 
 namespace Inversion.Process.Behaviour
@@ -23,12 +24,19 @@ namespace Inversion.Process.Behaviour
 
             foreach (KeyValuePair<string, string> entry in this.Configuration.GetMap("context", "set"))
             {
-                context.Params[entry.Key] = entry.Value;
+                if (entry.Value != null)
+                {
+                    context.Params[entry.Key] = entry.Value;
+                }
             }
 
             foreach (KeyValuePair<string, string> entry in this.Configuration.GetMap("context", "set-eval"))
             {
-                context.Params[entry.Key] = context.ControlState.GetEffectiveStringResult(entry.Value);
+                string v = context.ControlState.GetEffectiveStringResult(entry.Value);
+                if (v != null)
+                {
+                    context.Params[entry.Key] = v;
+                }
             }
 
             foreach (IConfigurationElement element in this.Configuration.GetElements("context", "remove"))
@@ -38,7 +46,10 @@ namespace Inversion.Process.Behaviour
 
             foreach (KeyValuePair<string, string> entry in this.Configuration.GetMap("event", "set"))
             {
-                ev.Params[entry.Key] = entry.Value;
+                if (entry.Value != null)
+                {
+                    ev.Params[entry.Key] = entry.Value;
+                }
             }
 
             foreach (IConfigurationElement element in this.Configuration.GetElements("event", "remove"))

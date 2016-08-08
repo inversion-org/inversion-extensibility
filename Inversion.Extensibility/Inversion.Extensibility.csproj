@@ -59,6 +59,7 @@
     <Compile Include="Process\Behaviour\CopyParametersBehaviour.cs" />
     <Compile Include="Process\Behaviour\DispatchBehaviour.cs" />
     <Compile Include="Process\Behaviour\FireEventFromControlStateBehaviour.cs" />
+    <Compile Include="Process\Behaviour\ListContainsMatchingItemBehaviour.cs" />
     <Compile Include="Process\Behaviour\LoopBehaviour.cs" />
     <Compile Include="Process\Behaviour\PrototypedConcomitantBehaviour.cs" />
     <Compile Include="Process\Behaviour\SetContextItemsBehaviour.cs" />
