@@ -148,10 +148,32 @@ namespace Inversion.Extensibility
                 match: (config) => config.Has("context", "not-empty"),
                 criteria: (config, ev) =>
                 {
-                    IEnumerable<IConfigurationElement> elements = config.GetElements("context", "empty");
+                    IEnumerable<IConfigurationElement> elements = config.GetElements("context", "not-empty");
                     return
                         elements.All(
                             e => ev.Context.HasParams(e.Name) && !String.IsNullOrEmpty(ev.Context.Params[e.Name]));
+                });
+
+            Prototype.NamedCases["context-contains"] = new Prototype.Case(
+                match: (config) => config.Has("context", "contains"),
+                criteria: (config, ev) =>
+                {
+                    IEnumerable<IConfigurationElement> elements = config.GetElements("context", "contains");
+                    return
+                        elements.All(
+                            e => ev.Context.HasParams(e.Name)
+                            && (ev.Context.Params[e.Name] ?? String.Empty).Contains(e.Value));
+                });
+
+            Prototype.NamedCases["context-not-contains"] = new Prototype.Case(
+                match: (config) => config.Has("context", "not-contains"),
+                criteria: (config, ev) =>
+                {
+                    IEnumerable<IConfigurationElement> elements = config.GetElements("context", "not-contains");
+                    return
+                        elements.All(
+                            e => ev.Context.HasParams(e.Name)
+                            && !(ev.Context.Params[e.Name] ?? String.Empty).Contains(e.Value));
                 });
         }
     }
