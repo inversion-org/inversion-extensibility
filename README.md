@@ -229,52 +229,47 @@ namespace ExtensibilityDemo
 }
 ```
 
-### PrototypedEvaluatingBehaviour
-The **PrototypedEvaluatingBehaviour** enables loose coupling of data items that can be sourced from fields of IData objects in the control state using a JSON Path, or from the value of context parameters. These values are made available to the behaviour as a named key which are evaluated when the behaviour's Action method is called.
-
-```
-public class CopyObjectValueToControlStateBehaviour : PrototypedEvaluatingBehaviour
-{
-    public CopyObjectValueToControlStateBehaviour(string respondsTo, IEnumerable<IConfigurationElement> config,
-        IEnumerable<IConfigurationElement> evals)
-        : base(respondsTo, config, evals) {}
-
-    public override void Action(IEvent ev, IProcessContext context)
-    {
-        IDictionary<string, string> data = this.Evaluate(context);
-        string value = data.GetEvalDataWithAssert("input-string");
-
-        string outputKey = this.Configuration.GetNameWithAssert("config", "output-key");
-        context.ControlState[outputKey] = new NamedTextData(outputKey, value);
-    }
-}
-```
+### Evals
+**Evals** enable loose coupling of data items that can be sourced from fields of IData objects in the control state using a JSON Path, or from the value of context parameters. These values are made available to the behaviour as a named key which are evaluated when the behaviour's Action method is called.
 
 Given the following configuration:
 ```
 #region demo
     
-    new SetContextItemsBehaviour("demo",
-        new Configuration.Builder
-        {
-            {"control-state", "set", "message", "hello" }
-        }),
-
-    new CopyObjectValueToControlStateBehaviour("demo",
+    new SetContextItemsBehaviour("process-request",
         config: new Configuration.Builder
         {
-            {"config", "output-key", "mycopy" },
-            {"control-state", "has", "message" }
-        },
-        evals: new Configuration.Builder
+            {"control-state", "set", "message", "hello"}
+        }),
+    
+    new DemoBehaviour("process-request",
+        config: new Configuration.Builder
         {
-            {"input-string", "control-state", "message" }
-        })
+            {"eval", "input-string", "control-state", "message" }
+        }),
 
 #endregion demo
 ```
 
-The **Evaluate** call in the behaviour would be instructed to create an item called 'input-string' which takes its value from the control-state item called 'message'. The **GetEffectiveStringResult** extension method is used to produce a string from the object. If the object was more complex, then a JSONPath could be used (e.g. 'message.content' if there was a property called 'content' in the IData object called 'message') to navigate into the JSON produced by the named object and a value retrieved for it. In this case, the value of the NamedTextData object called 'message' is evaluated to be 'hello'. The dictionary returned by **Evaluate** will include the pair ('input-string' -> 'hello') for retrieval by the behaviour.
+And the following code inside a behaviour's Action method:
+```
+    IDictionary<string, string> data = this.Configuration.Evaluate(ev, context);
+    string inputString = data.GetWithAssert("input-string");
+```
+
+The call to the extension method **Evaluate** in the behaviour will return a dictionary containing the values of any "eval" items in the behaviour configuration. There will be an item called 'input-string' which takes its value from the control-state item called 'message'. The **GetEffectiveStringResult** extension method is used to produce a string from the object. If the object was more complex, then a JSONPath could be used (e.g. 'message.content' if there was a property called 'content' in the IData object called 'message') to navigate into the JSON produced by the named object and a value retrieved for it. In this case, the value of the NamedTextData object called 'message' is evaluated to be 'hello'.
+
+Evals can take their values from the control state, context parameters, event parameters or the object cache.
+
+```
+    new Configuration.Builder
+    {
+        {"eval", "test1", "control-state", "controlstateobject.pathname"},
+        {"eval", "test2", "context", "context-parameter-name"},
+        {"eval", "test3", "event", "event-parameter-name"},
+        {"eval", "test4", "object-cache", "object-cache-key"
+    };
+```
 
 ## General behaviours
 These are behaviours that deal with Parameters, Control State items and Events.
