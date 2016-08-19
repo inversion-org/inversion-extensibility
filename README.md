@@ -267,7 +267,7 @@ Evals can take their values from the control state, context parameters, event pa
         {"eval", "test1", "control-state", "controlstateobject.pathname"},
         {"eval", "test2", "context", "context-parameter-name"},
         {"eval", "test3", "event", "event-parameter-name"},
-        {"eval", "test4", "object-cache", "object-cache-key"
+        {"eval", "test4", "object-cache", "object-cache-key"}
     };
 ```
 
