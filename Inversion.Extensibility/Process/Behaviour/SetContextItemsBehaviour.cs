@@ -39,6 +39,14 @@ namespace Inversion.Process.Behaviour
                 }
             }
 
+            foreach (KeyValuePair<string, string> entry in this.Configuration.GetMap("context", "set-event"))
+            {
+                if (ev.HasParams(entry.Key))
+                {
+                    context.Params[entry.Value] = ev[entry.Key];
+                }
+            }
+
             foreach (IConfigurationElement element in this.Configuration.GetElements("context", "remove"))
             {
                 context.Params.Remove(element.Name);
