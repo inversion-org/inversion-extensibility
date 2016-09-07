@@ -26,8 +26,12 @@ namespace Inversion.Process.Behaviour
 
         public override bool Condition(IEvent ev, IProcessContext context)
         {
-            return base.Condition(ev, context) ||
-                (this.Configuration.Has("config", "flag") && !context.IsFlagged(this.Configuration.GetNameWithAssert("config", "flag")));
+            return base.Condition(ev, context) &&
+                   (
+                       !this.Configuration.Has("config", "flag") ||
+                       (this.Configuration.Has("config", "flag") &&
+                        !context.IsFlagged(this.Configuration.GetNameWithAssert("config", "flag")))
+                       );
         }
 
         public override void Action(IEvent ev, IProcessContext context)
