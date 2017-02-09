@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8BDF6F79-DE72-4F83-B5DC-C1ABC463B201}</ProjectGuid>
+    <ProjectGuid>{EE93018A-44D8-49C2-B0A4-76FEE1E96B31}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Inversion</RootNamespace>
-    <AssemblyName>Inversion.Extensibility</AssemblyName>
+    <AssemblyName>Inversion.Extensibility.Web</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,8 +38,16 @@
       <HintPath>..\packages\Inversion.Process.1.0.0\lib\net452\Inversion.Process.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Inversion.Web, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Inversion.Web.1.0.0\lib\net452\Inversion.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>$(SolutionDir)packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RazorEngine, Version=3.4.1.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
+      <HintPath>..\packages\RazorEngine.3.4.1\lib\net45\RazorEngine.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -49,7 +56,26 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Reactive.Core, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rx-Core.2.2.5\lib\net45\System.Reactive.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.Interfaces, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rx-Interfaces.2.2.5\lib\net45\System.Reactive.Interfaces.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.Linq, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rx-Linq.2.2.5\lib\net45\System.Reactive.Linq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reactive.PlatformServices, Version=2.2.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rx-PlatformServices.2.2.5\lib\net45\System.Reactive.PlatformServices.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.0.0\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -58,33 +84,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extensibility\Extensions\ControlStateEx.cs" />
-    <Compile Include="Extensibility\Extensions\IConfigurationEx.cs" />
-    <Compile Include="Extensibility\Extensions\IDataDictionaryEx.cs" />
-    <Compile Include="Extensibility\Extensions\IDictionaryEx.cs" />
-    <Compile Include="Extensibility\Extensions\ObjectCacheEx.cs" />
-    <Compile Include="Extensibility\Prototypes.cs" />
-    <Compile Include="NamedTextData.cs" />
-    <Compile Include="Process\Behaviour\BlockBehaviour.cs" />
-    <Compile Include="Process\Behaviour\CopyControlStateBehaviour.cs" />
-    <Compile Include="Process\Behaviour\CopyObjectValueToControlStateBehaviour.cs" />
-    <Compile Include="Process\Behaviour\CopyParametersBehaviour.cs" />
-    <Compile Include="Process\Behaviour\DispatchBehaviour.cs" />
-    <Compile Include="Process\Behaviour\FireEventFromControlStateBehaviour.cs" />
-    <Compile Include="Process\Behaviour\IfElseBehaviour.cs" />
-    <Compile Include="Process\Behaviour\ListContainsMatchingItemBehaviour.cs" />
-    <Compile Include="Process\Behaviour\LoopBehaviour.cs" />
-    <Compile Include="Process\Behaviour\PrototypedConcomitantBehaviour.cs" />
-    <Compile Include="Process\Behaviour\SetContextItemsBehaviour.cs" />
-    <Compile Include="Process\LoopProcessContext.cs" />
-    <Compile Include="Process\Pipeline\IPipelineProvider.cs" />
-    <Compile Include="Process\Pipeline\PipelineConfigurationHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Web\Behaviour\PrototypedConcomitantWebBehaviour.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <None Include="Inversion.Extensibility.nuspec" />
+    <None Include="Inversion.Extensibility.Web.nuspec" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Inversion.Extensibility\Inversion.Extensibility.csproj">
+      <Project>{8bdf6f79-de72-4f83-b5dc-c1abc463b201}</Project>
+      <Name>Inversion.Extensibility</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
