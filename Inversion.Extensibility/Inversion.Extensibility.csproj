@@ -79,6 +79,7 @@
     <Compile Include="Process\LoopProcessContext.cs" />
     <Compile Include="Process\Pipeline\IPipelineProvider.cs" />
     <Compile Include="Process\Pipeline\PipelineConfigurationHelper.cs" />
+    <Compile Include="Process\Pipeline\Settings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
