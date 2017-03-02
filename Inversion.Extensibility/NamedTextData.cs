@@ -5,7 +5,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Inversion
 {
-    public class NamedTextData : IData
+    public class NamedTextData : TextData
     {
         private JObject _data;
 
@@ -31,6 +31,11 @@ namespace Inversion
             }
         }
 
+        public static implicit operator string(NamedTextData text)
+        {
+            return text.Value;
+        }
+
         /// <summary>
         /// Instantiates a new `NamedTextData` object with the value
         /// of the text provided.
@@ -38,7 +43,7 @@ namespace Inversion
         /// <param name="name">The label to initialise from.</param>
         /// <param name="text">The text to initialise from.</param>
 
-        public NamedTextData(string name, string text)
+        public NamedTextData(string name, string text) : base(text)
         {
             Name = name;
             Value = text;
@@ -50,15 +55,10 @@ namespace Inversion
         /// </summary>
         /// <param name="text">The `NamedTextData` to copy.</param>
 
-        public NamedTextData(NamedTextData text)
+        public NamedTextData(NamedTextData text) : base(text.Value)
         {
             Name = text.Name;
             Value = text.Value;
-        }
-
-        object ICloneable.Clone()
-        {
-            return this.Clone();
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace Inversion
         /// A copy as a `NamedTextData` object.
         /// </returns>
 
-        public NamedTextData Clone()
+        public new NamedTextData Clone()
         {
             return new NamedTextData(this);
         }
@@ -78,7 +78,7 @@ namespace Inversion
         /// Produces an xml representation of the text data.
         /// </summary>
         /// <param name="writer">The xml writer the representation should be written to.</param>
-        public void ToXml(XmlWriter writer)
+        public override void ToXml(XmlWriter writer)
         {
             writer.WriteStartElement(this.Name);
             writer.WriteCData(this.Value);
@@ -89,7 +89,7 @@ namespace Inversion
         /// Produces a json representation of the text data.
         /// </summary>
         /// <param name="writer">The json writer the representation should be written to.</param>
-        public void ToJson(JsonWriter writer)
+        public override void ToJson(JsonWriter writer)
         {
             writer.WriteStartObject();
             writer.WritePropertyName(this.Name);
