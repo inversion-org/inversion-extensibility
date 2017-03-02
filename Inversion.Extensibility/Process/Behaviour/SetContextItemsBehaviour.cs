@@ -17,6 +17,15 @@ namespace Inversion.Process.Behaviour
                 context.ControlState[element.Name] = new NamedTextData(element.Name, element.Value);
             }
 
+            foreach (KeyValuePair<string, string> entry in this.Configuration.GetMap("control-state", "set-eval"))
+            {
+                string v = context.ControlState.GetEffectiveStringResult(entry.Value);
+                if (v != null)
+                {
+                    context.ControlState[entry.Key] = new NamedTextData(entry.Key, v);
+                }
+            }
+
             foreach (IConfigurationElement element in this.Configuration.GetElements("control-state", "remove"))
             {
                 context.ControlState.Remove(element.Name);
