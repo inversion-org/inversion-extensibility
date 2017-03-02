@@ -31,12 +31,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Inversion, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Inversion.1.0.0\lib\net452\Inversion.dll</HintPath>
+    <Reference Include="Inversion, Version=1.0.6270.24406, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Inversion.1.0.6270.24406\lib\net452\Inversion.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Inversion.Process, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Inversion.Process.1.0.0\lib\net452\Inversion.Process.dll</HintPath>
+    <Reference Include="Inversion.Process, Version=1.0.6270.24407, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Inversion.Process.1.0.6270.24407\lib\net452\Inversion.Process.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
