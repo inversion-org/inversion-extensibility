@@ -14,22 +14,7 @@ namespace Inversion
         /// <summary>
         /// The string value of the text data.
         /// </summary>
-        public string Value { get; }
-
-        /// <summary>
-        /// Provides an abstract representation
-        /// of the objects data expressed as a JSON object.
-        /// </summary>
-        /// <remarks>
-        /// For this type the json object is only created the once.
-        /// </remarks>
-        public JObject Data
-        {
-            get
-            {
-                return _data ?? (_data = this.ToJsonObject());
-            }
-        }
+        public new string Value { get; }
 
         public static implicit operator string(NamedTextData text)
         {
