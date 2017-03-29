@@ -1,10 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using Inversion.Extensibility.Extensions;
+using log4net;
 
 namespace Inversion.Process.Behaviour
 {
     public abstract class PrototypedConcomitantBehaviour : PrototypedBehaviour
     {
+        private static readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         private readonly IList<IProcessBehaviour> _success = new List<IProcessBehaviour>();
         private readonly IList<IProcessBehaviour> _failure = new List<IProcessBehaviour>();
 
@@ -35,8 +41,16 @@ namespace Inversion.Process.Behaviour
 
         protected void Chain(IEvent ev, IProcessContext context, IList<IProcessBehaviour> chain)
         {
+            bool logActions = this.Configuration.Has("config", "log")
+                ? Convert.ToBoolean(this.Configuration.GetNameWithAssert("config", "log"))
+                : true;
+
             foreach (IProcessBehaviour behaviour in chain.Where(behaviour => behaviour.Condition(ev, context)))
             {
+                if (logActions)
+                {
+                    _log.DebugFormat("chain action: {0}", behaviour.GetType().FullName);
+                }
                 behaviour.Action(ev, context);
             }
         }
