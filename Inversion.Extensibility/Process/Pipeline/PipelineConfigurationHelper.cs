@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
+using log4net;
 
 namespace Inversion.Process.Pipeline
 {
     public class PipelineConfigurationHelper
     {
+        private static readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         private static Type GetType(string name)
         {
             Type type = Type.GetType(name);
@@ -19,6 +23,8 @@ namespace Inversion.Process.Pipeline
         {
             foreach (string providerType in providerTypes)
             {
+                _log.DebugFormat("configuring provider {0}", providerType);
+
                 IPipelineProvider provider = Activator.CreateInstance(GetType(providerType)) as IPipelineProvider;
 
                 if (provider == null)
