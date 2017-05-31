@@ -25,14 +25,22 @@ namespace Inversion.Process.Pipeline
             {
                 _log.DebugFormat("configuring provider {0}", providerType);
 
-                IPipelineProvider provider = Activator.CreateInstance(GetType(providerType)) as IPipelineProvider;
-
-                if (provider == null)
+                try
                 {
-                    throw new ArgumentException(String.Format("Could not activate provider with type name {0} as instance of IPipelineProvider", providerType));
-                }
+                    IPipelineProvider provider = Activator.CreateInstance(GetType(providerType)) as IPipelineProvider;
 
-                provider.Register(registrar, settings);
+                    if (provider == null)
+                    {
+                        throw new ArgumentException(String.Format("Could not activate provider with type name {0} as instance of IPipelineProvider", providerType));
+                    }
+
+                    provider.Register(registrar, settings);
+                }
+                catch (Exception ex)
+                {
+                    _log.DebugFormat("problem: {0}", ex.ToString());
+                    throw;
+                }
             }
         }
     }
