@@ -57,6 +57,7 @@
     <Compile Include="Extensibility\Extensions\ObjectCacheEx.cs" />
     <Compile Include="Extensibility\Prototypes.cs" />
     <Compile Include="NamedTextData.cs" />
+    <Compile Include="Process\Behaviour\SynchronisedBlockBehaviour.cs" />
     <Compile Include="Process\Behaviour\BlockBehaviour.cs" />
     <Compile Include="Process\Behaviour\CopyControlStateBehaviour.cs" />
     <Compile Include="Process\Behaviour\CopyObjectValueToControlStateBehaviour.cs" />
