@@ -12,7 +12,7 @@ namespace Inversion.Extensibility
 {
     public class Prototypes : IPipelineProvider
     {
-        public void Register(IServiceContainerRegistrar registrar, IDictionary<string, string> settings)
+        public static void AddPrototypes()
         {
             Prototype.NamedCases["control-state-equals"] = new Prototype.Case(
                 match: (config) => config.Has("control-state", "equals"),
@@ -175,6 +175,11 @@ namespace Inversion.Extensibility
                             e => ev.Context.HasParams(e.Name)
                             && !(ev.Context.Params[e.Name] ?? String.Empty).Contains(e.Value));
                 });
+        }
+
+        public void Register(IServiceContainerRegistrar registrar, IDictionary<string, string> settings)
+        {
+            AddPrototypes();
         }
     }
 }
