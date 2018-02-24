@@ -64,9 +64,9 @@ namespace Inversion.Extensibility.Extensions
                     case "event":
                         dict[element.Slot] = ev.Params.GetWithAssert(element.Value);
                         break;
-                    case "object-cache":
-                        dict[element.Slot] = context.ObjectCache.Get(element.Value).ToString();
-                        break;
+                    // case "object-cache":
+                    //     dict[element.Slot] = context.ObjectCache.Get(element.Value).ToString();
+                    //     break;
                 }
             }
 
