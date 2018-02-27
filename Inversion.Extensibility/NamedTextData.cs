@@ -14,7 +14,7 @@ namespace Inversion
         /// <summary>
         /// The string value of the text data.
         /// </summary>
-        public string Value { get; }
+        public new string Value { get; }
 
         /// <summary>
         /// Provides an abstract representation
@@ -23,7 +23,7 @@ namespace Inversion
         /// <remarks>
         /// For this type the json object is only created the once.
         /// </remarks>
-        public JObject Data
+        public new JObject Data
         {
             get
             {
