@@ -32,11 +32,18 @@ namespace Inversion.Extensibility.Extensions
             cacheEntry.Value = obj;
         }
 
-        public static void Add(this IMemoryCache self, string name, object obj, DateTimeOffset expiry)
+        public static void AddWithAbsoluteExpiry(this IMemoryCache self, string name, object obj, DateTimeOffset expiry)
         {
             ICacheEntry cacheEntry = self.CreateEntry(name);
             cacheEntry.Value = obj;
             cacheEntry.AbsoluteExpiration = expiry;
+        }
+
+        public static void AddWithSlidingExpiry(this IMemoryCache self, string name, object obj, TimeSpan expiry)
+        {
+            ICacheEntry cacheEntry = self.CreateEntry(name);
+            cacheEntry.Value = obj;
+            cacheEntry.SlidingExpiration = expiry;
         }
 
         public static object Get(this IMemoryCache self, string key)
