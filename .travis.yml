@@ -1,0 +1,9 @@
+language: csharp
+mono: none
+dotnet: 2.0.0
+
+before_script:
+ - chmod +x ./buildAndPublish.sh
+
+script:
+ - ./buildAndPublish.sh
