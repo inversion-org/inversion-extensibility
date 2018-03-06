@@ -3,7 +3,10 @@ mono: none
 dotnet: 2.0.0
 
 before_script:
- - chmod +x ./buildAndPublish.sh
+ - chmod +x ./publish.sh
 
 script:
- - ./buildAndPublish.sh
+ - dotnet restore
+ - dotnet build
+ - dotnet pack
+ - ./publish.sh
