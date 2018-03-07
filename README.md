@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/torquemaya/inversion-extensibility.svg?branch=dotnetcore)](https://travis-ci.org/torquemaya/inversion-extensibility)
+
 # Inversion.Extensibility
 New data type, base behaviours, extension methods and helpers for Inversion.
 
