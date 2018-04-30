@@ -11,21 +11,21 @@ namespace Inversion.Process.Behaviour
     {
         private static readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-        private readonly IList<IProcessBehaviour> _block;
+        protected readonly IList<IProcessBehaviour> Block;
 
         public BlockBehaviour(string respondsTo, IList<IProcessBehaviour> block) : base(respondsTo)
         {
-            _block = block;
+            this.Block = block;
         }
 
         public BlockBehaviour(string respondsTo, IPrototype prototype, IList<IProcessBehaviour> block) : base(respondsTo, prototype)
         {
-            _block = block;
+            this.Block = block;
         }
 
         public BlockBehaviour(string respondsTo, IEnumerable<IConfigurationElement> config, IList<IProcessBehaviour> block) : base(respondsTo, config)
         {
-            _block = block;
+            this.Block = block;
         }
 
         public override bool Condition(IEvent ev, IProcessContext context)
@@ -52,7 +52,7 @@ namespace Inversion.Process.Behaviour
                 context.Flags.Add(flagName);
             }
 
-            foreach (IProcessBehaviour behaviour in _block.Where(behaviour => behaviour.Condition(ev, context)))
+            foreach (IProcessBehaviour behaviour in this.Block.Where(behaviour => behaviour.Condition(ev, context)))
             {
                 if (logActions)
                 {
