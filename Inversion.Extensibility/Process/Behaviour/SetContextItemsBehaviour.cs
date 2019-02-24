@@ -26,6 +26,15 @@ namespace Inversion.Process.Behaviour
                 }
             }
 
+            foreach (KeyValuePair<string, string> entry in this.Configuration.GetMap("control-state", "set-from-param"))
+            {
+                string v = context.Params.GetWithAssert(entry.Value);
+                if (v != null)
+                {
+                    context.ControlState[entry.Key] = new NamedTextData(entry.Key, v);
+                }
+            }
+
             foreach (IConfigurationElement element in this.Configuration.GetElements("control-state", "remove"))
             {
                 context.ControlState.Remove(element.Name);
