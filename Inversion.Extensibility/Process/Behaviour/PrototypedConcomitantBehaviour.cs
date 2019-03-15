@@ -37,7 +37,10 @@ namespace Inversion.Process.Behaviour
         {
             foreach (IProcessBehaviour behaviour in chain.Where(behaviour => behaviour.Condition(ev, context)))
             {
+
+                ProcessContext.PreAction?.Invoke(behaviour, new ActionEventArgs(context: context, ev: ev));
                 behaviour.Action(ev, context);
+                ProcessContext.PostAction?.Invoke(behaviour, new ActionEventArgs(context: context, ev: ev));
             }
         }
     }
