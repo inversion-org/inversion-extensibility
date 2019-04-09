@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using Inversion.Extensibility.Extensions;
 
@@ -86,6 +87,14 @@ namespace Inversion.Process.Behaviour
             foreach (IConfigurationElement element in this.Configuration.GetElements("flag", "set"))
             {
                 context.Flags.Add(element.Name);
+            }
+
+            foreach (IConfigurationElement element in this.Configuration.GetElements("flag", "set-eval"))
+            {
+                if (Convert.ToBoolean(element.Value))
+                {
+                    context.Flags.Add(element.Name);
+                }
             }
 
             foreach (IConfigurationElement element in this.Configuration.GetElements("flag", "remove"))
