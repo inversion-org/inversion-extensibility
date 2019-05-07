@@ -12,7 +12,7 @@ namespace Inversion.Extensibility
 {
     public class Prototypes : IPipelineProvider
     {
-        public void Register(IServiceContainerRegistrar registrar, IDictionary<string, string> settings)
+        public static void AddPrototypes()
         {
             Prototype.NamedCases["control-state-equals"] = new Prototype.Case(
                 match: (config) => config.Has("control-state", "equals"),
@@ -87,21 +87,21 @@ namespace Inversion.Extensibility
                     });
                 });
 
-            Prototype.NamedCases["object-cache-includes"] = new Prototype.Case(
-                match: (config) => config.Has("object-cache", "includes"),
-                criteria: (config, ev) =>
-                {
-                    IEnumerable<IConfigurationElement> elements = config.GetElements("object-cache", "includes");
-                    return elements.All(e => ev.Context.ObjectCache.Contains(e.Name));
-                });
+            // Prototype.NamedCases["object-cache-includes"] = new Prototype.Case(
+            //     match: (config) => config.Has("object-cache", "includes"),
+            //     criteria: (config, ev) =>
+            //     {
+            //         IEnumerable<IConfigurationElement> elements = config.GetElements("object-cache", "includes");
+            //         return elements.All(e => ev.Context.ObjectCache.Contains(e.Name));
+            //     });
 
-            Prototype.NamedCases["object-cache-excludes"] = new Prototype.Case(
-                match: (config) => config.Has("object-cache", "excludes"),
-                criteria: (config, ev) =>
-                {
-                    IEnumerable<IConfigurationElement> elements = config.GetElements("object-cache", "excludes");
-                    return elements.All(e => !ev.Context.ObjectCache.Contains(e.Name));
-                });
+            // Prototype.NamedCases["object-cache-excludes"] = new Prototype.Case(
+            //     match: (config) => config.Has("object-cache", "excludes"),
+            //     criteria: (config, ev) =>
+            //     {
+            //         IEnumerable<IConfigurationElement> elements = config.GetElements("object-cache", "excludes");
+            //         return elements.All(e => !ev.Context.ObjectCache.Contains(e.Name));
+            //     });
 
             Prototype.NamedCases["context-type"] = new Prototype.Case(
                 match: (config) => config.Has("context", "type"),
@@ -175,6 +175,11 @@ namespace Inversion.Extensibility
                             e => ev.Context.HasParams(e.Name)
                             && !(ev.Context.Params[e.Name] ?? String.Empty).Contains(e.Value));
                 });
+        }
+
+        public void Register(IServiceContainerRegistrar registrar, IDictionary<string, string> settings)
+        {
+            AddPrototypes();
         }
     }
 }
