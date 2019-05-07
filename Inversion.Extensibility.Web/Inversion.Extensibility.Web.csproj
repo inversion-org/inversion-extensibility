@@ -1,16 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <PackageId>Inversion.Extensibility</PackageId>
-    <Version>1.0.10</Version>
+    <PackageId>Inversion.Extensibility.Web</PackageId>
+    <Version>1.0.2</Version>
     <Authors>Adam Christie</Authors>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.2.0" />
     <PackageReference Include="Inversion" Version="1.0.3" />
-    <PackageReference Include="Inversion.Process" Version="1.0.9" />
-    <PackageReference Include="System.Reactive" Version="4.1.3" />
+    <PackageReference Include="Inversion.Web" Version="1.0.4" />
   </ItemGroup>
 </Project>

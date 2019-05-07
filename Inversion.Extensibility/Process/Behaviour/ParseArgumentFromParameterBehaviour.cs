@@ -9,9 +9,9 @@ namespace Inversion.Process.Behaviour
 {
     public class ParseArgumentFromParameterBehaviour : PrototypedBehaviour
     {
-        public ParseArgumentFromParameterBehaviour(string respondsTo) : base(respondsTo) {}
-        public ParseArgumentFromParameterBehaviour(string respondsTo, IPrototype prototype) : base(respondsTo, prototype) {}
-        public ParseArgumentFromParameterBehaviour(string respondsTo, IEnumerable<IConfigurationElement> config) : base(respondsTo, config) {}
+        public ParseArgumentFromParameterBehaviour(string respondsTo) : base(respondsTo) { }
+        public ParseArgumentFromParameterBehaviour(string respondsTo, IPrototype prototype) : base(respondsTo, prototype) { }
+        public ParseArgumentFromParameterBehaviour(string respondsTo, IEnumerable<IConfigurationElement> config) : base(respondsTo, config) { }
 
         public override void Action(IEvent ev, IProcessContext context)
         {

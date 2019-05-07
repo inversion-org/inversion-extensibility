@@ -41,17 +41,11 @@ namespace Inversion.Process.Behaviour
 
         protected void Chain(IEvent ev, IProcessContext context, IList<IProcessBehaviour> chain)
         {
-            bool logActions = this.Configuration.Has("config", "log")
-                ? Convert.ToBoolean(this.Configuration.GetNameWithAssert("config", "log"))
-                : true;
-
             foreach (IProcessBehaviour behaviour in chain.Where(behaviour => behaviour.Condition(ev, context)))
             {
-                if (logActions)
-                {
-                    _log.DebugFormat("chain action: {0}", behaviour.GetType().FullName);
-                }
+                ProcessContext.PreAction?.Invoke(behaviour, new ActionEventArgs(context: context, ev: ev));
                 behaviour.Action(ev, context);
+                ProcessContext.PostAction?.Invoke(behaviour, new ActionEventArgs(context: context, ev: ev));
             }
         }
     }
