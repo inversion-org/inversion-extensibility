@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using Inversion.Extensibility.Extensions;
-using log4net;
 
 namespace Inversion.Process.Behaviour
 {
     public abstract class PrototypedConcomitantBehaviour : PrototypedBehaviour
     {
-        private static readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
         private readonly IList<IProcessBehaviour> _success = new List<IProcessBehaviour>();
         private readonly IList<IProcessBehaviour> _failure = new List<IProcessBehaviour>();
 
