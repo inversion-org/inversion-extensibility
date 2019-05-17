@@ -45,31 +45,36 @@ namespace Inversion.Extensibility.Process.Behaviour
 
             object syncObject = null;
 
-            lock (_locksAccess)
+            try
             {
-                if (!Locks.ContainsKey(lockValue))
+                lock (_locksAccess)
                 {
-                    Locks.Add(lockValue, new object());
+                    if (!Locks.ContainsKey(lockValue))
+                    {
+                        Locks.Add(lockValue, new object());
+                    }
+
+                    syncObject = Locks[lockValue];
                 }
 
-                syncObject = Locks[lockValue];
-            }
-
-            lock (syncObject)
-            {
-                foreach (IProcessBehaviour behaviour in _block.Where(behaviour => behaviour.Condition(ev, context)))
+                lock (syncObject)
                 {
-                    ProcessContext.PreAction?.Invoke(behaviour, new ActionEventArgs(context: context, ev: ev));
-                    behaviour.Action(ev, context);
-                    ProcessContext.PostAction?.Invoke(behaviour, new ActionEventArgs(context: context, ev: ev));
+                    foreach (IProcessBehaviour behaviour in _block.Where(behaviour => behaviour.Condition(ev, context)))
+                    {
+                        ProcessContext.PreAction?.Invoke(behaviour, new ActionEventArgs(context: context, ev: ev));
+                        behaviour.Action(ev, context);
+                        ProcessContext.PostAction?.Invoke(behaviour, new ActionEventArgs(context: context, ev: ev));
+                    }
                 }
             }
-
-            lock (_locksAccess)
+            finally
             {
-                if (Locks.ContainsKey(lockValue))
+                lock (_locksAccess)
                 {
-                    Locks.Remove(lockValue);
+                    if (Locks.ContainsKey(lockValue))
+                    {
+                        Locks.Remove(lockValue);
+                    }
                 }
             }
         }
