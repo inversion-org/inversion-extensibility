@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Inversion.Extensibility.Extensions;
 
 namespace Inversion.Process.Behaviour
@@ -13,9 +14,20 @@ namespace Inversion.Process.Behaviour
         {
             string inputKey = this.Configuration.GetNameWithAssert("config", "input-key");
 
+            string overrideEventName = this.Configuration.Has("config", "override-event-name")
+                ? this.Configuration.GetNameWithAssert("config", "override-event-name")
+                : String.Empty;
+
             IEvent inputEvent = context.ControlState.GetWithAssert<IEvent>(inputKey);
 
-            context.Fire(inputEvent);
+            if (!String.IsNullOrEmpty(overrideEventName))
+            {
+                context.Fire(overrideEventName, inputEvent.Params);
+            }
+            else
+            {
+                context.Fire(inputEvent);
+            }
         }
     }
 }
